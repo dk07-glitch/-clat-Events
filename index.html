@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Éclat Events – Where Every Moment Shines</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple:  #6C3483;
+      --purple-light: #9B59B6;
+      --purple-dark:  #4A235A;
+      --gold:    #D4AF37;
+      --gold-light: #F0D060;
+      --white:   #FFFFFF;
+      --dark:    #2C3E50;
+      --dark2:   #1a252f;
+      --gray:    #F8F6FF;
+      --text:    #4a4a6a;
+      --card-bg: rgba(255,255,255,0.75);
+      --shadow:  0 20px 60px rgba(108,52,131,0.15);
+      --radius:  18px;
+      --transition: 0.4s cubic-bezier(0.25,0.8,0.25,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--dark); }
+
+    a { text-decoration: none; color: inherit; }
+
+    img { max-width: 100%; display: block; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== SECTION HEADING ===== */
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(108,52,131,0.1), rgba(212,175,55,0.1));
+      border: 1px solid rgba(108,52,131,0.2);
+      border-radius: 50px;
+      padding: 6px 18px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 14px;
+    }
+    .section-tag i { color: var(--gold); font-size: 0.9rem; }
+
+    .section-heading {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-heading span { color: var(--purple); }
+
+    .section-sub {
+      font-size: 1.05rem;
+      color: var(--text);
+      max-width: 580px;
+      opacity: 0.85;
+      margin: 0 auto 56px;
+    }
+    .text-center { text-align: center; }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.5px;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      color: var(--white);
+      box-shadow: 0 8px 30px rgba(108,52,131,0.4);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(108,52,131,0.5);
+      background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--dark);
+      box-shadow: 0 8px 30px rgba(212,175,55,0.4);
+    }
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(212,175,55,0.55);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: var(--white);
+      transform: translateY(-3px);
+    }
+
+    /* ===== SCROLL FADE ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    .fade-in {
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .fade-in.visible { opacity: 1; }
+
+    /* ===== NAVBAR ===== */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 18px 0;
+      transition: all 0.4s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(44, 30, 58, 0.97);
+      backdrop-filter: blur(16px);
+      padding: 12px 0;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+    #navbar .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo span { color: var(--gold); }
+    .logo-icon {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--dark);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.9rem;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px; height: 2.5px;
+      background: var(--white);
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(44,30,58,0.98);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--white);
+      font-size: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      font-size: 1.8rem;
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a0a2e 0%, #2d1155 35%, #4a235a 65%, #1a2a4a 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(212,175,55,0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(155,89,182,0.15) 0%, transparent 40%),
+        radial-gradient(circle at 60% 80%, rgba(108,52,131,0.2) 0%, transparent 40%);
+    }
+
+    #confetti-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      padding: 120px 0 80px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212,175,55,0.15);
+      border: 1px solid rgba(212,175,55,0.4);
+      border-radius: 50px;
+      padding: 8px 20px;
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: fadeDown 0.8s ease 0.2s both;
+    }
+    .hero-badge i { animation: spin 4s linear infinite; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 7vw, 5.2rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 22px;
+      animation: fadeUp 0.9s ease 0.4s both;
+    }
+    .hero-title .gold { color: var(--gold); }
+    .hero-title .script {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.78);
+      max-width: 560px;
+      margin-bottom: 40px;
+      animation: fadeUp 0.9s ease 0.6s both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.9s ease 0.8s both;
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-8px); }
+    }
+
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.06;
+      animation: floatShape 8s ease-in-out infinite;
+    }
+    @keyframes floatShape {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(180deg); }
+    }
+
+    /* ===== STATS BAR ===== */
+    #stats {
+      background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+      padding: 56px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    #stats::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      position: relative;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 24px 16px;
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      color: rgba(255,255,255,0.85);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .stat-icon {
+      font-size: 1.6rem;
+      color: rgba(212,175,55,0.5);
+      margin-bottom: 12px;
+    }
+
+    /* ===== SERVICES ===== */
+    #services { padding: 100px 0; background: var(--gray); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+    }
+    .service-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(108,52,131,0.12);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--purple), var(--gold));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 80px rgba(108,52,131,0.2);
+      border-color: rgba(108,52,131,0.25);
+    }
+    .service-icon-wrap {
+      width: 68px; height: 68px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(108,52,131,0.1), rgba(212,175,55,0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+      font-size: 1.7rem;
+      transition: var(--transition);
+    }
+    .service-card:hover .service-icon-wrap {
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      color: var(--white) !important;
+      transform: scale(1.1) rotate(-5deg);
+    }
+    .service-icon-wrap i { transition: color 0.4s; }
+    .service-card:hover .service-icon-wrap i { color: var(--white) !important; }
+    .service-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--text);
+      opacity: 0.85;
+      line-height: 1.75;
+    }
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      color: var(--purple);
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: gap 0.3s;
+    }
+    .service-card:hover .service-link { gap: 12px; }
+
+    /* ===== HOW IT WORKS ===== */
+    #how-it-works { padding: 100px 0; background: var(--white); }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 52px;
+      left: calc(12.5% + 36px);
+      right: calc(12.5% + 36px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple), var(--gold), var(--purple));
+      z-index: 0;
+    }
+    .timeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .step-circle {
+      width: 104px; height: 104px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--white);
+      margin-bottom: 24px;
+      box-shadow: 0 12px 40px rgba(108,52,131,0.35);
+      transition: var(--transition);
+      position: relative;
+    }
+    .step-circle::after {
+      content: attr(data-step);
+      position: absolute;
+      top: -8px; right: -8px;
+      width: 28px; height: 28px;
+      background: var(--gold);
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+    }
+    .timeline-step:hover .step-circle {
+      transform: scale(1.1);
+      box-shadow: 0 20px 60px rgba(108,52,131,0.5);
+    }
+    .timeline-step h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+    .timeline-step p {
+      font-size: 0.85rem;
+      color: var(--text);
+      opacity: 0.8;
+    }
+    .step-arrow {
+      position: absolute;
+      top: 42px;
+      right: -12px;
+      color: var(--gold);
+      font-size: 1.2rem;
+      z-index: 2;
+    }
+
+    /* ===== GALLERY ===== */
+    #gallery { padding: 100px 0; background: var(--gray); }
+
+    .gallery-filters {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .filter-btn {
+      padding: 10px 24px;
+      border-radius: 50px;
+      border: 2px solid rgba(108,52,131,0.2);
+      background: transparent;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.5px;
+    }
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      color: var(--white);
+      border-color: transparent;
+      box-shadow: 0 6px 20px rgba(108,52,131,0.3);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .gallery-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .gallery-item.hidden {
+      opacity: 0;
+      transform: scale(0.92);
+      pointer-events: none;
+      display: none;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-item:hover .gallery-img { transform: scale(1.08); }
+
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(44,30,58,0.9) 0%, rgba(44,30,58,0.3) 60%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .gallery-overlay h4 {
+      color: var(--white);
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+    .gallery-tag {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--dark);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 50px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Gallery gradient placeholders */
+    .g1  { background: linear-gradient(135deg, #6C3483, #9B59B6, #D4AF37); }
+    .g2  { background: linear-gradient(135deg, #2C3E50, #4A235A, #6C3483); }
+    .g3  { background: linear-gradient(135deg, #D4AF37, #F0D060, #6C3483); }
+    .g4  { background: linear-gradient(135deg, #1ABC9C, #6C3483, #2C3E50); }
+    .g5  { background: linear-gradient(135deg, #E74C3C, #9B59B6, #6C3483); }
+    .g6  { background: linear-gradient(135deg, #3498DB, #6C3483, #D4AF37); }
+    .g7  { background: linear-gradient(135deg, #F39C12, #D4AF37, #6C3483); }
+    .g8  { background: linear-gradient(135deg, #27AE60, #6C3483, #9B59B6); }
+    .g9  { background: linear-gradient(135deg, #6C3483, #2C3E50, #D4AF37); }
+
+    /* ===== TESTIMONIALS ===== */
+    #testimonials { padding: 100px 0; background: var(--white); }
+
+    .testimonials-track-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonials-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.25,0.8,0.25,1);
+    }
+    .testimonial-slide {
+      min-width: 100%;
+      padding: 0 20px;
+    }
+    .testimonial-card {
+      background: linear-gradient(135deg, rgba(108,52,131,0.04), rgba(212,175,55,0.04));
+      border: 1px solid rgba(108,52,131,0.12);
+      border-radius: 24px;
+      padding: 48px 52px;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+    .testimonial-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 24px; left: 36px;
+      font-family: 'Playfair Display', serif;
+      font-size: 8rem;
+      color: var(--purple);
+      opacity: 0.1;
+      line-height: 1;
+    }
+    .stars { color: var(--gold); font-size: 1.1rem; letter-spacing: 3px; margin-bottom: 20px; }
+    .testimonial-text {
+      font-size: 1.1rem;
+      line-height: 1.85;
+      color: var(--text);
+      font-style: italic;
+      margin-bottom: 28px;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .author-avatar {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--white);
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      border: 3px solid var(--gold);
+      flex-shrink: 0;
+    }
+    .author-name { font-weight: 700; color: var(--dark); font-size: 1rem; }
+    .author-event { font-size: 0.82rem; color: var(--purple); font-weight: 500; }
+
+    .testimonial-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .tctl-btn {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      border: 2px solid rgba(108,52,131,0.25);
+      background: var(--white);
+      color: var(--purple);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tctl-btn:hover {
+      background: var(--purple);
+      color: var(--white);
+      border-color: var(--purple);
+    }
+    .tctl-dots { display: flex; gap: 8px; }
+    .tctl-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(108,52,131,0.2);
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+    .tctl-dot.active {
+      background: var(--purple);
+      transform: scale(1.3);
+    }
+
+    /* ===== PRICING ===== */
+    #pricing { padding: 100px 0; background: var(--gray); }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+    .pricing-card {
+      background: var(--white);
+      border: 1px solid rgba(108,52,131,0.12);
+      border-radius: 24px;
+      padding: 44px 36px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+      transition: var(--transition);
+      overflow: hidden;
+    }
+    .pricing-card:hover { transform: translateY(-10px); }
+    .pricing-card.popular {
+      background: linear-gradient(145deg, var(--purple-dark), var(--purple));
+      border-color: transparent;
+      box-shadow: 0 30px 80px rgba(108,52,131,0.4);
+      transform: scale(1.04);
+    }
+    .pricing-card.popular:hover { transform: scale(1.04) translateY(-10px); }
+    .pricing-card.popular h3,
+    .pricing-card.popular .price-amount,
+    .pricing-card.popular .feature-item { color: var(--white); }
+    .pricing-card.popular .price-period { color: rgba(255,255,255,0.7); }
+    .pricing-card.popular .feature-item i { color: var(--gold); }
+
+    .popular-ribbon {
+      position: absolute;
+      top: 20px; right: -32px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--dark);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 48px;
+      transform: rotate(35deg);
+      transform-origin: center;
+      box-shadow: 0 4px 15px rgba(212,175,55,0.4);
+    }
+
+    .pricing-tier {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 12px;
+    }
+    .pricing-card.popular .pricing-tier { color: var(--gold); }
+    .pricing-card h3 { font-size: 1.5rem; margin-bottom: 20px; }
+    .price-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1;
+    }
+    .price-amount sup { font-size: 1.5rem; vertical-align: top; margin-top: 10px; display: inline-block; }
+    .price-period {
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+    .pricing-divider {
+      height: 1px;
+      background: rgba(108,52,131,0.1);
+      margin: 24px 0;
+    }
+    .pricing-card.popular .pricing-divider { background: rgba(255,255,255,0.2); }
+    .features-list { list-style: none; text-align: left; margin-bottom: 32px; }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+    .feature-item i { color: var(--purple); font-size: 0.9rem; flex-shrink: 0; }
+    .feature-item.off { opacity: 0.4; }
+    .feature-item.off i { color: #ccc; }
+
+    /* ===== INQUIRY FORM ===== */
+    #contact {
+      padding: 100px 0;
+      background: linear-gradient(135deg, #1a0a2e 0%, #2d1155 50%, #1a2a4a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    #contact::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23D4AF37' stroke-width='0.3' opacity='0.15'/%3E%3C/svg%3E") repeat;
+      opacity: 0.3;
+    }
+    #contact .section-heading span { color: var(--gold); }
+    #contact .section-heading { color: var(--white); }
+    #contact .section-tag { background: rgba(212,175,55,0.1); border-color: rgba(212,175,55,0.3); color: var(--gold); }
+    #contact .section-sub { color: rgba(255,255,255,0.7); }
+
+    .inquiry-form {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 28px;
+      padding: 52px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group.full { grid-column: 1/-1; }
+    .form-group label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.5px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: var(--white);
+      font-size: 0.9rem;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s;
+      outline: none;
+    }
+    .form-group select option { background: var(--dark2); color: var(--white); }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.35); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 0 0 4px rgba(212,175,55,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-submit {
+      margin-top: 8px;
+      width: 100%;
+      padding: 18px;
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 32px;
+    }
+    .success-msg.show { display: block; }
+    .success-icon {
+      font-size: 4rem;
+      color: var(--gold);
+      margin-bottom: 16px;
+      animation: popIn 0.5s cubic-bezier(0.175,0.885,0.32,1.275) both;
+    }
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .success-msg h3 { color: var(--white); font-size: 1.8rem; margin-bottom: 10px; }
+    .success-msg p { color: rgba(255,255,255,0.7); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--dark2);
+      padding: 72px 0 32px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+      gap: 48px;
+      margin-bottom: 56px;
+    }
+    .footer-brand .logo { font-size: 1.5rem; margin-bottom: 16px; }
+    .footer-brand p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.8;
+      max-width: 260px;
+      margin-bottom: 24px;
+    }
+    .social-links { display: flex; gap: 12px; }
+    .social-link {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+    .social-link:hover {
+      background: var(--purple);
+      border-color: var(--purple);
+      color: var(--white);
+      transform: translateY(-3px);
+    }
+    .footer-col h4 {
+      color: var(--white);
+      font-size: 1rem;
+      margin-bottom: 20px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 12px; }
+    .footer-links a {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.88rem;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-links a i { font-size: 0.7rem; color: var(--gold); }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+      margin-top: 8px;
+    }
+    .newsletter-input {
+      flex: 1;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-right: none;
+      border-radius: 12px 0 0 12px;
+      padding: 12px 16px;
+      color: var(--white);
+      font-size: 0.85rem;
+      font-family: 'Poppins', sans-serif;
+      outline: none;
+    }
+    .newsletter-input::placeholder { color: rgba(255,255,255,0.35); }
+    .newsletter-btn {
+      background: linear-gradient(135deg, var(--purple), var(--purple-light));
+      color: var(--white);
+      border: none;
+      padding: 12px 18px;
+      border-radius: 0 12px 12px 0;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    .newsletter-btn:hover { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--dark); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-bottom p {
+      color: rgba(255,255,255,0.4);
+      font-size: 0.82rem;
+    }
+    .footer-bottom span { color: var(--gold); }
+
+    /* ===== ANIMATED GRADIENT BORDER HELPER ===== */
+    @keyframes gradBorderSpin {
+      to { background-position: 200% center; }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item { border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom: none; }
+      .timeline { grid-template-columns: repeat(2, 1fr); }
+      .timeline::before { display: none; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
+      .pricing-card.popular { transform: none; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .services-grid { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: 1; }
+      .inquiry-form { padding: 32px 24px; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .testimonial-card { padding: 32px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+      .hero-btns { flex-direction: column; }
+      .btn { justify-content: center; }
+    }
+
+    /* ===== SCROLL TO TOP ===== */
+    #scroll-top {
+      position: fixed;
+      bottom: 32px; right: 32px;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--purple), var(--gold));
+      color: var(--white);
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(108,52,131,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+      z-index: 999;
+    }
+    #scroll-top.show { opacity: 1; transform: translateY(0); }
+    #scroll-top:hover { transform: translateY(-4px); }
+
+    /* ===== ACTIVE NAV ===== */
+    .nav-links li a.active { color: var(--gold) !important; }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#hero" class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-star"></i></div>
+      <span>Éclat</span>&nbsp;Events
+    </a>
+
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Events</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <a href="#contact" class="btn btn-gold nav-cta">Plan My Event</a>
+
+    <div class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <span class="mobile-close" id="mobile-close"><i class="fa-solid fa-xmark"></i></span>
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#gallery" class="mobile-link">Events</a>
+  <a href="#gallery" class="mobile-link">Gallery</a>
+  <a href="#pricing" class="mobile-link">Pricing</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <a href="#contact" class="btn btn-gold" style="margin-top:12px;">Plan My Event</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Floating shapes -->
+  <div class="floating-shape" style="width:400px;height:400px;background:var(--purple);top:-100px;right:-100px;animation-delay:0s;animation-duration:10s;"></div>
+  <div class="floating-shape" style="width:250px;height:250px;background:var(--gold);bottom:50px;left:-80px;animation-delay:3s;animation-duration:12s;"></div>
+  <div class="floating-shape" style="width:150px;height:150px;background:var(--white);top:40%;right:15%;animation-delay:1.5s;animation-duration:9s;"></div>
+
+  <div class="hero-bg-pattern"></div>
+
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        Where Every Moment Shines
+      </div>
+
+      <h1 class="hero-title">
+        Your <span class="gold">Dream</span><br/>
+        Event,<br/>
+        <span class="script">Perfectly Planned</span>
+      </h1>
+
+      <p class="hero-sub">
+        From intimate gatherings to grand celebrations, Éclat Events crafts unforgettable experiences tailored to your vision, your story, and your heart.
+      </p>
+
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-gold">
+          <i class="fa-solid fa-calendar-check"></i>
+          Plan My Event
+        </a>
+        <a href="#gallery" class="btn btn-outline">
+          <i class="fa-solid fa-play"></i>
+          View Showreel
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <span style="font-size:0.7rem;">SCROLL</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- ===== STATS BAR ===== -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item fade-up">
+        <div class="stat-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
+        <div class="stat-number" data-target="500">0</div>
+        <div class="stat-label">Events Delivered</div>
+      </div>
+      <div class="stat-item fade-up" style="transition-delay:0.1s">
+        <div class="stat-icon"><i class="fa-solid fa-handshake"></i></div>
+        <div class="stat-number" data-target="50">0</div>
+        <div class="stat-label">Trusted Vendors</div>
+      </div>
+      <div class="stat-item fade-up" style="transition-delay:0.2s">
+        <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
+        <div class="stat-number" data-target="10">0</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item fade-up" style="transition-delay:0.3s">
+        <div class="stat-icon"><i class="fa-solid fa-face-smile"></i></div>
+        <div class="stat-number" data-target="98">0</div>
+        <div class="stat-label">Happy Clients %</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-tag"><i class="fa-solid fa-sparkles"></i> What We Offer</div>
+      <h2 class="section-heading">Celebrating <span>Every</span> Chapter</h2>
+      <p class="section-sub">Whether it's a whispered vow or a roaring corporate gala, we transform your vision into a masterpiece.</p>
+    </div>
+
+    <div class="services-grid">
+      <!-- Card 1 -->
+      <div class="service-card fade-up" style="transition-delay:0.05s">
+        <div class="service-icon-wrap"><i class="fa-solid fa-rings-wedding" style="color:var(--purple)"></i></div>
+        <h3>Weddings</h3>
+        <p>From intimate ceremonies to lavish celebrations, we craft weddings that are uniquely yours — every petal, every light, every moment.</p>
+        <a href="#contact" class="service-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="service-card fade-up" style="transition-delay:0.1s">
+        <div class="service-icon-wrap"><i class="fa-solid fa-cake-candles" style="color:var(--gold)"></i></div>
+        <h3>Birthday Parties</h3>
+        <p>Milestone birthdays deserve legendary celebrations. We design experiences that guests talk about for years.</p>
+        <a href="#contact" class="service-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="service-card fade-up" style="transition-delay:0.15s">
+        <div class="service-icon-wrap"><i class="fa-solid fa-briefcase" style="color:var(--purple-light)"></i></div>
+        <h3>Corporate Events</h3>
+        <p>Conferences, product launches, galas — we produce polished corporate events that elevate your brand and impress every stakeholder.</p>
+        <a href="#contact" class="service-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="service-card fade-up" style="transition-delay:0.2s">
+        <div class="service-icon-wrap"><i class="fa-solid fa-baby" style="color:#E91E8C"></i></div>
+        <h3>Baby Showers</h3>
+        <p>Soft colours, sweet details, and warm memories — we welcome new life with beautifully curated showers full of love.</p>
+        <a href="#contact" class="service-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="service-card fade-up" style="transition-delay:0.25s">
+        <div class="service-icon-wrap"><i class="fa-solid fa-heart" style="color:#E74C3C"></i></div>
+        <h3>Anniversary Celebrations</h3>
+        <p>Honour the journey of love with anniversary events that renew vows, spark joy, and create new memories together.</p>
+        <a href="#contact" class="service-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="service-card fade-up" style="transition-delay:0.3s">
+        <div class="service-icon-wrap"><i class="fa-solid fa-graduation-cap" style="color:#27AE60"></i></div>
+        <h3>Graduation Parties</h3>
+        <p>Celebrate academic achievement in style. Our graduation events are vibrant, personal, and worthy of the hard work you've put in.</p>
+        <a href="#contact" class="service-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section id="how-it-works">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-tag"><i class="fa-solid fa-route"></i> The Process</div>
+      <h2 class="section-heading">How We Make <span>Magic</span></h2>
+      <p class="section-sub">Our streamlined 4-step process ensures every detail is perfect from first chat to final confetti drop.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-step fade-up" style="transition-delay:0.05s">
+        <div class="step-circle" data-step="1"><i class="fa-solid fa-comments"></i></div>
+        <h3>Consult</h3>
+        <p>Share your vision and dreams with our expert planners during a free, no-obligation discovery session.</p>
+      </div>
+
+      <div class="timeline-step fade-up" style="transition-delay:0.15s">
+        <div class="step-circle" data-step="2"><i class="fa-solid fa-pencil-ruler"></i></div>
+        <h3>Design</h3>
+        <p>We craft a bespoke event concept — themes, décor, vendors, timelines — tailored perfectly to you.</p>
+      </div>
+
+      <div class="timeline-step fade-up" style="transition-delay:0.25s">
+        <div class="step-circle" data-step="3"><i class="fa-solid fa-gears"></i></div>
+        <h3>Execute</h3>
+        <p>Our seasoned team orchestrates every detail seamlessly, so you can be fully present and stress-free.</p>
+      </div>
+
+      <div class="timeline-step fade-up" style="transition-delay:0.35s">
+        <div class="step-circle" data-step="4"><i class="fa-solid fa-champagne-glasses"></i></div>
+        <h3>Celebrate</h3>
+        <p>Enjoy every magical moment knowing every detail has been handled with precision and passion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section id="gallery">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-tag"><i class="fa-solid fa-images"></i> Our Portfolio</div>
+      <h2 class="section-heading">Events We've <span>Loved</span> Creating</h2>
+      <p class="section-sub">Browse a selection of our favourite celebrations and discover the Éclat signature style.</p>
+    </div>
+
+    <div class="gallery-filters fade-up">
+      <button class="filter-btn active" data-filter="all">All Events</button>
+      <button class="filter-btn" data-filter="wedding">Weddings</button>
+      <button class="filter-btn" data-filter="birthday">Birthdays</button>
+      <button class="filter-btn" data-filter="corporate">Corporate</button>
+    </div>
+
+    <div class="gallery-grid">
+      <!-- 9 items -->
+      <div class="gallery-item" data-cat="wedding">
+        <div class="gallery-img g1"><i class="fa-solid fa-rings-wedding" style="color:rgba(255,255,255,0.5)"></i></div>
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Wedding</span>
+          <h4>The Rosewood Wedding</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-cat="birthday">
+        <div class="gallery-img g2"><i class="fa-solid fa-cake-candles" style="color:rgba(255,255,255,0.5)"></i></div>
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Birthday</span>
+          <h4>Sophie's Milestone 40th</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-cat="corporate">
+        <div class="gallery-img g3"><i class="fa-solid fa-briefcase" style="color:rgba(255,255,255,0.5)"></i></div>
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Corporate</span>
+          <h4>Nexus Annual Gala</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-cat="wedding">
+        <div class="gallery-img g4"><i class="fa-solid fa-heart" style="color:rgba(255,255,255,0.5)"></i></div>
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Wedding</span>
+          <h4>Garden Ceremony, Tuscany</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-cat="birthday">
+        <div class="gallery-img g5"><i class="fa-solid fa-star" style="color:rgba(255,255,255,0.5)"></i></div>
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Birthday</span>
+          <h4>Royal 50th Gala Night</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-cat="corporate">
+        <div class="gallery-img g6"><i class="fa-solid fa-award" style="color:rgba(255,255,255,0.5)"></i></div>
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Corporate</span>
+          <h4>Apex Product Launch</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-cat="wedding">
+        <div class="gallery-img g7"><i class="fa-solid fa-champagne-glasses" style="color:rgba(255,255,255,0.5)"></i></div>
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Wedding</span>
+          <h4>Beachfront Vows at Sunset</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-cat="birthday">
+        <div class="gallery-img g8"><i class="fa-solid fa-balloon" style="color:rgba(255,255,255,0.5)"></i></div>
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Birthday</span>
+          <h4>Luna's Sweet 16</h4>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-cat="corporate">
+        <div class="gallery-img g9"><i class="fa-solid fa-handshake" style="color:rgba(255,255,255,0.5)"></i></div>
+        <div class="gallery-overlay">
+          <span class="gallery-tag">Corporate</span>
+          <h4>Meridian Leadership Summit</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section id="testimonials">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-tag"><i class="fa-solid fa-quote-left"></i> Client Stories</div>
+      <h2 class="section-heading">Words That <span>Warm</span> Our Hearts</h2>
+      <p class="section-sub">Don't take our word for it — hear from the couples, families, and executives we've been honoured to serve.</p>
+    </div>
+
+    <div class="testimonials-track-wrap fade-up">
+      <div class="testimonials-track" id="testimonials-track">
+
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p class="testimonial-text">
+              "Working with Éclat Events was the best decision we made for our wedding. Every detail was beyond what we imagined — from the floral archways to the golden tablescapes. They turned our Pinterest board into pure poetry. We didn't worry about a single thing on the day."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">S</div>
+              <div>
+                <div class="author-name">Sophia & James Hartwell</div>
+                <div class="author-event"><i class="fa-solid fa-rings-wedding" style="margin-right:4px;font-size:0.75rem;"></i>Rosewood Garden Wedding</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p class="testimonial-text">
+              "Our annual gala was transformed into something truly extraordinary by the Éclat team. The attention to brand cohesion, guest flow, and entertainment curation was impeccable. Our CEO called it the best corporate event in the company's 20-year history."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">M</div>
+              <div>
+                <div class="author-name">Marcus Chen, VP Operations</div>
+                <div class="author-event"><i class="fa-solid fa-briefcase" style="margin-right:4px;font-size:0.75rem;"></i>Nexus Annual Gala 2024</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-slide">
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p class="testimonial-text">
+              "I wanted my daughter's Sweet 16 to be magical, and Éclat delivered beyond my wildest dreams! The décor was absolutely breathtaking, every vendor was professional, and the timeline was flawless. My daughter cried happy tears — mission accomplished!"
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">A</div>
+              <div>
+                <div class="author-name">Amara & Luna Williams</div>
+                <div class="author-event"><i class="fa-solid fa-cake-candles" style="margin-right:4px;font-size:0.75rem;"></i>Luna's Sweet 16 Celebration</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="testimonial-controls">
+        <button class="tctl-btn" id="tctl-prev" aria-label="Previous"><i class="fa-solid fa-arrow-left"></i></button>
+        <div class="tctl-dots">
+          <button class="tctl-dot active" data-idx="0"></button>
+          <button class="tctl-dot" data-idx="1"></button>
+          <button class="tctl-dot" data-idx="2"></button>
+        </div>
+        <button class="tctl-btn" id="tctl-next" aria-label="Next"><i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section id="pricing">
+  <div class="container">
+    <div class="text-center fade-up">
+      <div class="section-tag"><i class="fa-solid fa-tags"></i> Investment</div>
+      <h2 class="section-heading">Plans That <span>Fit</span> Your Vision</h2>
+      <p class="section-sub">Transparent, all-inclusive packages designed to bring your perfect event to life — no surprises, just magic.</p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Essential -->
+      <div class="pricing-card fade-up" style="transition-delay:0.05s">
+        <div class="pricing-tier">Essential</div>
+        <h3>The Foundation</h3>
+        <div class="price-amount"><sup>$</sup>999</div>
+        <div class="price-period">per event · up to 50 guests</div>
+        <div class="pricing-divider"></div>
+        <ul class="features-list">
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Initial Consultation (2hrs)</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Event Concept & Mood Board</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Vendor Recommendations</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Day-Of Coordination (8hrs)</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Timeline Management</li>
+          <li class="feature-item off"><i class="fa-solid fa-xmark"></i> Full Décor Design</li>
+          <li class="feature-item off"><i class="fa-solid fa-xmark"></i> Vendor Negotiation</li>
+          <li class="feature-item off"><i class="fa-solid fa-xmark"></i> Dedicated Planner</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">Get Started</a>
+      </div>
+
+      <!-- Premium (Popular) -->
+      <div class="pricing-card popular fade-up" style="transition-delay:0.15s">
+        <div class="popular-ribbon">Most Popular</div>
+        <div class="pricing-tier">Premium</div>
+        <h3>The Experience</h3>
+        <div class="price-amount" style="color:var(--gold)"><sup>$</sup>2,499</div>
+        <div class="price-period">per event · up to 150 guests</div>
+        <div class="pricing-divider"></div>
+        <ul class="features-list">
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Everything in Essential</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Full Décor Design & Styling</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Vendor Sourcing & Negotiation</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Dedicated Senior Planner</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> 3 Planning Meetings</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Guest RSVP Management</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Budget Tracking Dashboard</li>
+          <li class="feature-item off"><i class="fa-solid fa-xmark"></i> International Venues</li>
+        </ul>
+        <a href="#contact" class="btn btn-gold" style="width:100%;justify-content:center;">Most Popular</a>
+      </div>
+
+      <!-- Luxury -->
+      <div class="pricing-card fade-up" style="transition-delay:0.25s">
+        <div class="pricing-tier">Luxury</div>
+        <h3>The Masterpiece</h3>
+        <div class="price-amount"><sup>$</sup>4,999</div>
+        <div class="price-period">per event · unlimited guests</div>
+        <div class="pricing-divider"></div>
+        <ul class="features-list">
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Everything in Premium</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> International Venue Access</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Custom Floral Installations</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Entertainment Curation</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> VIP Guest Concierge</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Dedicated 3-Planner Team</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> Post-Event Report & Album</li>
+          <li class="feature-item"><i class="fa-solid fa-check"></i> 24/7 Priority Support</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">Go Luxury</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT / INQUIRY FORM ===== -->
+<section id="contact">
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="text-center fade-up">
+      <div class="section-tag"><i class="fa-solid fa-envelope-open-text"></i> Let's Talk</div>
+      <h2 class="section-heading">Start Planning Your <span>Dream Event</span></h2>
+      <p class="section-sub">Fill out the form below and one of our planners will reach out within 24 hours to begin crafting your perfect experience.</p>
+    </div>
+
+    <div class="inquiry-form fade-up" style="transition-delay:0.1s">
+      <form id="inquiry-form" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="name"><i class="fa-solid fa-user" style="margin-right:6px;color:var(--gold)"></i>Full Name *</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Sarah Johnson" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email"><i class="fa-solid fa-envelope" style="margin-right:6px;color:var(--gold)"></i>Email Address *</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="phone"><i class="fa-solid fa-phone" style="margin-right:6px;color:var(--gold)"></i>Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" />
+          </div>
+
+          <div class="form-group">
+            <label for="event-type"><i class="fa-solid fa-calendar-star" style="margin-right:6px;color:var(--gold)"></i>Event Type *</label>
+            <select id="event-type" name="event-type" required>
+              <option value="" disabled selected>Select event type</option>
+              <option value="wedding">💍 Wedding</option>
+              <option value="birthday">🎂 Birthday Party</option>
+              <option value="corporate">💼 Corporate Event</option>
+              <option value="baby-shower">👶 Baby Shower</option>
+              <option value="anniversary">❤️ Anniversary</option>
+              <option value="graduation">🎓 Graduation Party</option>
+              <option value="other">✨ Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="event-date"><i class="fa-solid fa-calendar-days" style="margin-right:6px;color:var(--gold)"></i>Event Date *</label>
+            <input type="date" id="event-date" name="event-date" required />
+          </div>
+
+          <div class="form-group">
+            <label for="guests"><i class="fa-solid fa-users" style="margin-right:6px;color:var(--gold)"></i>Expected Guest Count</label>
+            <input type="number" id="guests" name="guests" placeholder="e.g. 150" min="1" max="5000" />
+          </div>
+
+          <div class="form-group">
+            <label for="budget"><i class="fa-solid fa-circle-dollar-to-slot" style="margin-right:6px;color:var(--gold)"></i>Budget Range</label>
+            <select id="budget" name="budget">
+              <option value="" disabled selected>Select budget range</option>
+              <option value="under-1k">Under $1,000</option>
+              <option value="1k-3k">$1,000 – $3,000</option>
+              <option value="3k-7k">$3,000 – $7,000</option>
+              <option value="7k-15k">$7,000 – $15,000</option>
+              <option value="15k-30k">$15,000 – $30,000</option>
+              <option value="30k+">$30,000+</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="venue"><i class="fa-solid fa-location-dot" style="margin-right:6px;color:var(--gold)"></i>Preferred Venue / City</label>
+            <input type="text" id="venue" name="venue" placeholder="e.g. New York, NY" />
+          </div>
+
+          <div class="form-group full">
+            <label for="requests"><i class="fa-solid fa-wand-magic-sparkles" style="margin-right:6px;color:var(--gold)"></i>Special Requests or Vision</label>
+            <textarea id="requests" name="requests" placeholder="Tell us about your dream event — themes, colors, must-haves, inspirations…"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-gold form-submit">
+          <i class="fa-solid fa-paper-plane"></i>
+          Send My Inquiry
+        </button>
+      </form>
+
+      <div class="success-msg" id="success-msg">
+        <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <h3>Your Inquiry is On Its Way!</h3>
+        <p>Thank you for reaching out to Éclat Events. One of our dedicated planners will be in touch within 24 hours to begin crafting your perfect celebration. ✨</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-icon"><i class="fa-solid fa-star"></i></div>
+          <span style="color:var(--gold)">Éclat</span>&nbsp;<span style="color:rgba(255,255,255,0.9)">Events</span>
+        </div>
+        <p>Where every moment becomes a cherished memory. Crafting extraordinary events since 2014, one celebration at a time.</p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-link" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+          <a href="#" class="social-link" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" class="social-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul class="footer-links">
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Weddings</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Birthday Parties</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Corporate Events</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Baby Showers</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Anniversary Celebrations</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Graduation Parties</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#hero"><i class="fa-solid fa-chevron-right"></i>Home</a></li>
+          <li><a href="#how-it-works"><i class="fa-solid fa-chevron-right"></i>How It Works</a></li>
+          <li><a href="#gallery"><i class="fa-solid fa-chevron-right"></i>Gallery</a></li>
+          <li><a href="#pricing"><i class="fa-solid fa-chevron-right"></i>Pricing</a></li>
+          <li><a href="#testimonials"><i class="fa-solid fa-chevron-right"></i>Testimonials</a></li>
+          <li><a href="#contact"><i class="fa-solid fa-chevron-right"></i>Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Stay Inspired</h4>
+        <p style="color:rgba(255,255,255,0.5);font-size:0.85rem;margin-bottom:16px;">Get event inspiration, tips, and exclusive offers delivered to your inbox.</p>
+        <div class="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="Your email address" />
+          <button class="newsletter-btn" aria-label="Subscribe"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+        <p style="color:rgba(255,255,255,0.35);font-size:0.78rem;margin-top:12px;">
+          <i class="fa-solid fa-map-marker-alt" style="color:var(--gold);margin-right:6px;"></i>
+          142 Celebration Ave, New York, NY 10001
+        </p>
+        <p style="color:rgba(255,255,255,0.35);font-size:0.78rem;margin-top:8px;">
+          <i class="fa-solid fa-phone" style="color:var(--gold);margin-right:6px;"></i>
+          +1 (212) 555-ECLAT
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2024 <span>Éclat Events</span>. All rights reserved. Where Every Moment Shines.</p>
+      <p>Crafted with <span>♥</span> for extraordinary celebrations.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll to top -->
+<button id="scroll-top" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+(function() {
+  'use strict';
+
+  /* ── 1. CONFETTI / PARTICLES ── */
+  const canvas = document.getElementById('confetti-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  const COLORS = ['#D4AF37','#6C3483','#9B59B6','#F0D060','#FFFFFF','#E91E8C'];
+  const SHAPES = ['circle','star','rect'];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function randomBetween(a, b) { return a + Math.random() * (b - a); }
+
+  function createParticle() {
+    return {
+      x: randomBetween(0, canvas.width),
+      y: randomBetween(-canvas.height, 0),
+      size: randomBetween(4, 10),
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
+      speedX: randomBetween(-1.2, 1.2),
+      speedY: randomBetween(0.8, 2.4),
+      rotation: randomBetween(0, Math.PI * 2),
+      rotSpeed: randomBetween(-0.04, 0.04),
+      opacity: randomBetween(0.4, 0.85),
+    };
+  }
+
+  for (let i = 0; i < 90; i++) {
+    const p = createParticle();
+    p.y = randomBetween(0, canvas.height); // initial spread
+    particles.push(p);
+  }
+
+  function drawStar(cx, cy, r, col) {
+    ctx.fillStyle = col;
+    ctx.beginPath();
+    for (let i = 0; i < 5; i++) {
+      const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+      i === 0 ? ctx.moveTo(cx + r * Math.cos(angle), cy + r * Math.sin(angle))
+               : ctx.lineTo(cx + r * Math.cos(angle), cy + r * Math.sin(angle));
+    }
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p, i) => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+      p.rotation += p.rotSpeed;
+      ctx.save();
+      ctx.globalAlpha = p.opacity;
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotation);
+      ctx.fillStyle = p.color;
+      if (p.shape === 'circle') {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (p.shape === 'rect') {
+        ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+      } else {
+        drawStar(0, 0, p.size / 2, p.color);
+      }
+      ctx.restore();
+      if (p.y > canvas.height + 20) particles[i] = createParticle();
+    });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+
+  /* ── 2. NAVBAR SCROLL ── */
+  const navbar = document.getElementById('navbar');
+  const scrollTopBtn = document.getElementById('scroll-top');
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    navbar.classList.toggle('scrolled', y > 60);
+    scrollTopBtn.classList.toggle('show', y > 400);
+
+    // Active nav
+    const sections = ['services','gallery','pricing','contact'];
+    sections.forEach(id => {
+      const sec = document.getElementById(id);
+      if (!sec) return;
+      const links = document.querySelectorAll(`#nav-links a[href="#${id}"]`);
+      const rect = sec.getBoundingClientRect();
+      const active = rect.top <= 80 && rect.bottom > 80;
+      links.forEach(l => l.classList.toggle('active', active));
+    });
+  });
+
+  scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+
+  /* ── 3. MOBILE MENU ── */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileClose = document.getElementById('mobile-close');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    hamburger.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  hamburger.addEventListener('click', openMenu);
+  mobileClose.addEventListener('click', closeMenu);
+  mobileLinks.forEach(l => l.addEventListener('click', closeMenu));
+
+
+  /* ── 4. INTERSECTION OBSERVER (fade-up / counter trigger) ── */
+  let countersTriggered = false;
+
+  const ioFade = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        ioFade.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up, .fade-in').forEach(el => ioFade.observe(el));
+
+  // Stats counter observer
+  const statsSection = document.getElementById('stats');
+  const ioStats = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !countersTriggered) {
+      countersTriggered = true;
+      runCounters();
+      ioStats.disconnect();
+    }
+  }, { threshold: 0.4 });
+  if (statsSection) ioStats.observe(statsSection);
+
+
+  /* ── 5. ANIMATED COUNTERS ── */
+  function runCounters() {
+    document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = target === 500 ? '+' : target === 50 ? '+' : target === 98 ? '%' : '';
+      const duration = 1800;
+      const start = performance.now();
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+
+  /* ── 6. GALLERY FILTER ── */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      galleryItems.forEach(item => {
+        const match = filter === 'all' || item.dataset.cat === filter;
+        if (match) {
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+
+  /* ── 7. TESTIMONIALS CAROUSEL ── */
+  const track = document.getElementById('testimonials-track');
+  const slides = track.querySelectorAll('.testimonial-slide');
+  const dots = document.querySelectorAll('.tctl-dot');
+  let current = 0;
+  let autoTimer;
+
+  function goTo(idx) {
+    current = (idx + slides.length) % slides.length;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  document.getElementById('tctl-prev').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+  document.getElementById('tctl-next').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+  dots.forEach(d => d.addEventListener('click', () => { goTo(parseInt(d.dataset.idx)); resetAuto(); }));
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => goTo(current + 1), 5000);
+  }
+  resetAuto();
+
+
+  /* ── 8. HERO PARALLAX ── */
+  window.addEventListener('scroll', () => {
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+      const y = window.scrollY;
+      heroContent.style.transform = `translateY(${y * 0.25}px)`;
+      heroContent.style.opacity = Math.max(0, 1 - y / 600);
+    }
+  });
+
+
+  /* ── 9. FORM VALIDATION ── */
+  const form = document.getElementById('inquiry-form');
+  const successMsg = document.getElementById('success-msg');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = form.querySelector('#name').value.trim();
+    const email = form.querySelector('#email').value.trim();
+    const eventType = form.querySelector('#event-type').value;
+    const eventDate = form.querySelector('#event-date').value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Clear previous error highlights
+    form.querySelectorAll('input,select,textarea').forEach(f => f.style.borderColor = '');
+
+    let valid = true;
+
+    if (!name) {
+      form.querySelector('#name').style.borderColor = '#E74C3C';
+      form.querySelector('#name').focus();
+      valid = false;
+    }
+    if (!emailRegex.test(email)) {
+      form.querySelector('#email').style.borderColor = '#E74C3C';
+      if (valid) form.querySelector('#email').focus();
+      valid = false;
+    }
+    if (!eventType) {
+      form.querySelector('#event-type').style.borderColor = '#E74C3C';
+      valid = false;
+    }
+    if (!eventDate) {
+      form.querySelector('#event-date').style.borderColor = '#E74C3C';
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    // Animate submit button
+    const submitBtn = form.querySelector('.form-submit');
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending…';
+    submitBtn.disabled = true;
+
+    setTimeout(() => {
+      form.style.display = 'none';
+      successMsg.classList.add('show');
+    }, 1400);
+  });
+
+
+  /* ── 10. SMOOTH SCROLL FOR ALL ANCHOR LINKS ── */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const offset = navbar.offsetHeight + 16;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+
+  /* ── 11. NEWSLETTER SUBSCRIBE ── */
+  document.querySelector('.newsletter-btn').addEventListener('click', () => {
+    const input = document.querySelector('.newsletter-input');
+    const val = input.value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(val)) {
+      input.style.borderColor = '#E74C3C';
+      return;
+    }
+    input.style.borderColor = '#27AE60';
+    input.value = '✓ Subscribed!';
+    input.readOnly = true;
+    setTimeout(() => {
+      input.style.borderColor = '';
+      input.value = '';
+      input.readOnly = false;
+    }, 3000);
+  });
+
+
+  /* ── 12. HOVER RIPPLE ON SERVICE CARDS ── */
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mx', `${x}px`);
+      card.style.setProperty('--my', `${y}px`);
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
